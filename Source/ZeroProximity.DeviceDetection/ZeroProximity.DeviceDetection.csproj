@@ -39,7 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MobileDetection.cs" />
+    <Compile Include="Defaults\MobileDetectionUserAgents.cs" />
+    <Compile Include="DetectionOptions.cs" />
+    <Compile Include="DeviceType.cs" />
+    <Compile Include="IMobileDetection.cs" />
+    <Compile Include="MatchingDevice.cs" />
+    <Compile Include="LevenshtienDistanceDetection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
