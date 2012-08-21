@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>ZeroProximityDeviceDetection</id>
+    <version>0.0.0.0</version>
+    <authors>Brendan Kowitz</authors>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Allows simple, fast detection of mobile devices giving you what you need to know to redirect to a mobile or tablet site.</description>
+    <summary>Simple mobile device detection for .net websites</summary>
+    <language>en-US</language>
+    <title>Device Detection</title>
+    <projectUrl>http://github.com/brendankowitz/devicedetection</projectUrl>
+  </metadata>
+</package>
