@@ -41,10 +41,11 @@
   <ItemGroup>
     <Compile Include="Defaults\MobileDetectionUserAgents.cs" />
     <Compile Include="DetectionOptions.cs" />
-    <Compile Include="DeviceType.cs" />
-    <Compile Include="IMobileDetection.cs" />
+    <Compile Include="DeviceDetectionFactory.cs" />
+    <Compile Include="DeviceOs.cs" />
+    <Compile Include="IMobileDeviceDetection.cs" />
     <Compile Include="MatchingDevice.cs" />
-    <Compile Include="LevenshtienDistanceDetection.cs" />
+    <Compile Include="LevenshtienDistanceDeviceDetection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

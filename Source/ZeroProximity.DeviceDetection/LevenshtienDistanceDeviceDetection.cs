@@ -5,21 +5,21 @@ using ZeroProximity.DeviceDetection.Defaults;
 
 namespace ZeroProximity.DeviceDetection
 {
-    public class LevenshtienDistanceDetection : IMobileDetection
+    public class LevenshtienDistanceDeviceDetection : IMobileDeviceDetection
     {
         private readonly DetectionOptions _options;
-        private readonly IDictionary<string, DeviceType> _mobileDeviceComparisonList;
-        private readonly IDictionary<string, DeviceType> _mobileTabletOverrideComparisonList;
+        private readonly IDictionary<string, DeviceOs> _mobileDeviceComparisonList;
+        private readonly IDictionary<string, DeviceOs> _mobileTabletOverrideComparisonList;
 
-        public LevenshtienDistanceDetection(DetectionOptions options = null)
+        public LevenshtienDistanceDeviceDetection(DetectionOptions options = null)
         {
             _options = options ?? new DetectionOptions();
             _mobileDeviceComparisonList = MobileDetectionUserAgents.MobileComparisonList;
             _mobileTabletOverrideComparisonList = MobileDetectionUserAgents.TabletOverrideComparisonList;
         }
 
-        public LevenshtienDistanceDetection(IDictionary<string, DeviceType> mobileUserAgentStrings,
-            IDictionary<string, DeviceType> tabletOverrideUserAgentStrings, DetectionOptions options = null)
+        public LevenshtienDistanceDeviceDetection(IDictionary<string, DeviceOs> mobileUserAgentStrings,
+            IDictionary<string, DeviceOs> tabletOverrideUserAgentStrings, DetectionOptions options = null)
         {
             _options = options ?? new DetectionOptions();
             _mobileDeviceComparisonList = mobileUserAgentStrings;
@@ -29,7 +29,7 @@ namespace ZeroProximity.DeviceDetection
         public MatchingDevice Match(string userAgent)
         {
             var userAgentLower = userAgent.ToLower();
-            var result = new MatchingDevice{ IsMobile = false, IsTablet = false, MostLikelyDeviceOs = DeviceType.Unknown };
+            var result = new MatchingDevice{ IsMobile = false, IsTablet = false, MostLikelyDeviceOs = DeviceOs.Unknown };
 
             if (_options.AllowEarlyExitForDesktopBrowsers)
             {
@@ -51,14 +51,14 @@ namespace ZeroProximity.DeviceDetection
                     (userAgentLower.Contains("opera mobi") && userAgentLower.Contains("android")))
                 {
                     result.IsMobile = true;
-                    result.MostLikelyDeviceOs = DeviceType.Android;
+                    result.MostLikelyDeviceOs = DeviceOs.Android;
                 }
                 else if (userAgentLower.Contains("android"))
                 {
                     //android tablets have the keyword "android" but not "mobile"
                     result.IsTablet = true;
                     result.IsMobile = true;
-                    result.MostLikelyDeviceOs = DeviceType.Android;
+                    result.MostLikelyDeviceOs = DeviceOs.Android;
                 }
 
                 //ipad
@@ -66,7 +66,7 @@ namespace ZeroProximity.DeviceDetection
                 {
                     result.IsMobile = true;
                     result.IsTablet = true;
-                    result.MostLikelyDeviceOs = DeviceType.iOS;
+                    result.MostLikelyDeviceOs = DeviceOs.iOS;
                     return result;
                 }
 
@@ -82,17 +82,17 @@ namespace ZeroProximity.DeviceDetection
             }
 
             //guess device type
-            var resultWalk = new List<KeyValuePair<DeviceType, int>>();
+            var resultWalk = new List<KeyValuePair<DeviceOs, int>>();
             foreach(var pair in _mobileDeviceComparisonList)
             {
                 var distance = Distance(pair.Key.ToLower(), userAgentLower);
-                resultWalk.Add(new KeyValuePair<DeviceType, int>(pair.Value, distance));
+                resultWalk.Add(new KeyValuePair<DeviceOs, int>(pair.Value, distance));
             }
-            var resultTabletWalk = new List<KeyValuePair<DeviceType, int>>();
+            var resultTabletWalk = new List<KeyValuePair<DeviceOs, int>>();
             foreach (var pair in _mobileTabletOverrideComparisonList)
             {
                 var distance = Distance(pair.Key.ToLower(), userAgentLower);
-                resultTabletWalk.Add(new KeyValuePair<DeviceType, int>(pair.Value, distance));
+                resultTabletWalk.Add(new KeyValuePair<DeviceOs, int>(pair.Value, distance));
             }
 
             var bestMobile = resultWalk.FirstOrDefault(x => x.Value == resultWalk.Min(y => y.Value));

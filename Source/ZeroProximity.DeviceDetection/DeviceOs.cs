@@ -1,6 +1,6 @@
 namespace ZeroProximity.DeviceDetection
 {
-    public enum DeviceType
+    public enum DeviceOs
     {
         iOS,
         WindowsPhone,

@@ -1,6 +1,6 @@
 namespace ZeroProximity.DeviceDetection
 {
-    public interface IMobileDetection
+    public interface IMobileDeviceDetection
     {
         MatchingDevice Match(string userAgent);
     }
