@@ -3,6 +3,9 @@ Mobile Device Detection
 Available on nuget: 
 https://nuget.org/packages/ZeroProximity.DeviceDetection
 
+Live demo:
+http://devicedetection.kowitz.net
+
 Allows simple, fast detection of mobile devices giving you what you need to know to redirect to a mobile or tablet site.
 
 Usage:
