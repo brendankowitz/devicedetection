@@ -1,61 +1,61 @@
 ﻿body {
-    font-size: .85em;
-    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
-    color: #232323;
-    background-color: #fff;
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+.sidebar-nav {
+    padding: 9px 0;
 }
 
-header, footer, nav, section {
-    display: block;
+.container-fluid {
+
 }
 
-
-/* Styles for basic forms
------------------------------------------------------------*/
-fieldset {
-    border: 1px solid #ddd;
-    padding: 0 1.4em 1.4em 1.4em;
-    margin: 0 0 1.5em 0;
+.modal form {
+    margin-bottom: 0;
 }
 
-legend {
-    font-size: 1.2em;
-    font-weight: bold;
+h3 
+{
+    color: #404040;
 }
 
-textarea {
-    min-height: 75px;
+.expiresoon {
+    background-color: orange;
 }
 
-.editor-label {
-    margin: 1em 0 0 0;
+.expired {
+    background-color: orangered;
+    color: #fff;
+}
+.expired h3 {
+    color: #fff;
 }
 
-.editor-field {
-    margin: 0.5em 0 0 0;
+.well h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-
-/* Styles for validation helpers
------------------------------------------------------------*/
-.field-validation-error {
-    color: #f00;
+@media (max-width: 979px) {
+    body {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .navbar-fixed-top, .navbar-fixed-bottom {
+        margin-right: -20px;
+        margin-left: -20px;
+    }
 }
 
-.field-validation-valid {
-    display: none;
-}
+@media (max-width: 767px) 
+{
+    .hero-unit {
+        padding: 20px;
+        margin-bottom: 10px;
+    }
+    .hero-unit h1 {
+        font-size: 40px;
+    }
 
-.input-validation-error {
-    border: 1px solid #f00;
-    background-color: #fee;
-}
-
-.validation-summary-errors {
-    font-weight: bold;
-    color: #f00;
-}
-
-.validation-summary-valid {
-    display: none;
 }

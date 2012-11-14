@@ -1,0 +1,53 @@
+﻿@model ZeroProximity.DeviceDetection.Demo.Models.UserAgentModel
+
+<div class="row-fluid">
+    <div class="span9">
+        <div class="row-fluid">
+            <h2>You are using a:</h2>
+        </div>
+        <div class="hero-unit">
+            <h1>@(Model.MatchingDevice.IsMobile ? "Mobile Device" : "Non-mobile device")</h1>
+        </div>
+        <hr class="bs-docs-separator" />
+        <div class="row-fluid">
+            <h2 style="color: darkseagreen">"@Model.UA"</h2>
+        </div>
+        <hr class="bs-docs-separator" />
+        <div class="row-fluid" style="margin-top: 2em">
+            <h2>Additional detection information:</h2>
+        </div>
+        <div class="row-fluid">
+            <div class="span4 well">
+                <h3>Tablet or touch enabled?</h3>
+                <p>@(Model.MatchingDevice.IsTablet ? "Yes" : "Undetermined")</p>
+            </div>
+            <div class="span4 well">
+                <h3>Device OS</h3>
+                <p>@(Model.MatchingDevice.MostLikelyDeviceOs)</p>
+            </div>
+        </div>
+        <hr class="bs-docs-separator" />
+        <div class="row-fluid" style="margin-top: 2em">
+            <h2>Try another useragent string:</h2>
+            @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                @Html.TextBox("customUA")
+                <button type="submit" class="btn btn-large btn-primary">Test it!</button>
+            }
+        </div>
+        <hr class="bs-docs-separator" />
+        <div class="row-fluid" style="margin-top: 2em">
+            <h2>Try it for yourself:</h2>
+            <pre>Nuget&gt; Install-Package ZeroProximity.DeviceDetection</pre>
+            <pre>
+IMobileDeviceDetection _deviceDeviceDetection = DeviceDetectionFactory.GetDefaultImplementation();
+var result = _deviceDeviceDetection.Match(Request.UserAgent);
+
+Assert.AreEqual(DeviceOs.WindowsPhone, result.MostLikelyDeviceOs);
+Assert.AreEqual(true, result.IsMobile);
+Assert.AreEqual(false, result.IsTablet);
+</pre>
+        </div>
+        <hr class="bs-docs-separator" />
+    </div>
+</div>
