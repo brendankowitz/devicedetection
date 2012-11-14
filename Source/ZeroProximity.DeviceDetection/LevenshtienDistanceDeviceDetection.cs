@@ -8,8 +8,8 @@ namespace ZeroProximity.DeviceDetection
     public class LevenshtienDistanceDeviceDetection : IMobileDeviceDetection
     {
         private readonly DetectionOptions _options;
-        private readonly IDictionary<string, DeviceOs> _mobileDeviceComparisonList;
-        private readonly IDictionary<string, DeviceOs> _mobileTabletOverrideComparisonList;
+        private readonly IDictionary<string, DeviceConfiguration> _mobileDeviceComparisonList;
+        private readonly IDictionary<string, DeviceConfiguration> _mobileTabletOverrideComparisonList;
 
         public LevenshtienDistanceDeviceDetection(DetectionOptions options = null)
         {
@@ -18,8 +18,8 @@ namespace ZeroProximity.DeviceDetection
             _mobileTabletOverrideComparisonList = MobileDetectionUserAgents.TabletOverrideComparisonList;
         }
 
-        public LevenshtienDistanceDeviceDetection(IDictionary<string, DeviceOs> mobileUserAgentStrings,
-            IDictionary<string, DeviceOs> tabletOverrideUserAgentStrings, DetectionOptions options = null)
+        public LevenshtienDistanceDeviceDetection(IDictionary<string, DeviceConfiguration> mobileUserAgentStrings,
+            IDictionary<string, DeviceConfiguration> tabletOverrideUserAgentStrings, DetectionOptions options = null)
         {
             _options = options ?? new DetectionOptions();
             _mobileDeviceComparisonList = mobileUserAgentStrings;
@@ -34,7 +34,8 @@ namespace ZeroProximity.DeviceDetection
             if (_options.AllowEarlyExitForDesktopBrowsers)
             {
                 //exit early for desktop browsers
-                if (((userAgentLower.Contains("windows nt") && !userAgentLower.Contains("up.link") &&
+                if ((((userAgentLower.Contains("windows nt") && !userAgentLower.Contains("touch")) && 
+                      !userAgentLower.Contains("up.link") &&
                       !userAgentLower.Contains("bolt")) ||
                      userAgentLower.Contains("macintosh") ||
                      userAgentLower.Contains("x11")) && !userAgentLower.Contains("qt/"))
@@ -82,31 +83,31 @@ namespace ZeroProximity.DeviceDetection
             }
 
             //guess device type
-            var resultWalk = new List<KeyValuePair<DeviceOs, int>>();
+            var resultWalk = new List<KeyValuePair<DeviceConfiguration, int>>();
             foreach(var pair in _mobileDeviceComparisonList)
             {
                 var distance = Distance(pair.Key.ToLower(), userAgentLower);
-                resultWalk.Add(new KeyValuePair<DeviceOs, int>(pair.Value, distance));
+                resultWalk.Add(new KeyValuePair<DeviceConfiguration, int>(pair.Value, distance));
             }
-            var resultTabletWalk = new List<KeyValuePair<DeviceOs, int>>();
+            var resultTabletWalk = new List<KeyValuePair<DeviceConfiguration, int>>();
             foreach (var pair in _mobileTabletOverrideComparisonList)
             {
                 var distance = Distance(pair.Key.ToLower(), userAgentLower);
-                resultTabletWalk.Add(new KeyValuePair<DeviceOs, int>(pair.Value, distance));
+                resultTabletWalk.Add(new KeyValuePair<DeviceConfiguration, int>(pair.Value, distance));
             }
 
             var bestMobile = resultWalk.FirstOrDefault(x => x.Value == resultWalk.Min(y => y.Value));
             if (bestMobile.Value < userAgentLower.Length / 2)
             {
-                result.IsMobile = true;
-                result.MostLikelyDeviceOs = bestMobile.Key;
-
-                var bestTablet = resultTabletWalk.FirstOrDefault(x => x.Value == resultTabletWalk.Min(y => y.Value));
-                if (bestTablet.Value < bestMobile.Value && bestTablet.Value < 10)
-                {
-                    result.MostLikelyDeviceOs = bestTablet.Key;
-                    result.IsTablet = true;
-                }
+                result.IsMobile = bestMobile.Key.IsMobile;
+                result.MostLikelyDeviceOs = bestMobile.Key.DeviceOs;
+            }
+            var bestTablet = resultTabletWalk.FirstOrDefault(x => x.Value == resultTabletWalk.Min(y => y.Value));
+            if (bestTablet.Value < bestMobile.Value && bestTablet.Value < 10)
+            {
+                result.IsMobile = bestTablet.Key.IsMobile;
+                result.MostLikelyDeviceOs = bestTablet.Key.DeviceOs;
+                result.IsTablet = bestTablet.Key.IsTabletOrTouchEnabled;
             }
 
             return result;

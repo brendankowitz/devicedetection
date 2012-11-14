@@ -385,6 +385,17 @@ namespace ZeroProximity.DeviceDetection.Tests
             Assert.AreEqual(false, d.IsMobile);
             Assert.AreEqual(false, d.IsTablet);
         }
+
+
+        [TestMethod]
+        public void Is_win8_ie10_tablet()
+        {
+            var d = _deviceDeviceDetection.Match("Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; WOW64; Trident/6.0; Touch)");
+
+            Assert.AreEqual(DeviceOs.Windows8, d.MostLikelyDeviceOs);
+            Assert.AreEqual(false, d.IsMobile);
+            Assert.AreEqual(true, d.IsTablet);
+        }
    
     }
 }

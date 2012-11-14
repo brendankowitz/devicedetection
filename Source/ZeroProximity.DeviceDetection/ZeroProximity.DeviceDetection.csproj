@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Defaults\MobileDetectionUserAgents.cs" />
     <Compile Include="DetectionOptions.cs" />
+    <Compile Include="DeviceConfiguration.cs" />
     <Compile Include="DeviceDetectionFactory.cs" />
     <Compile Include="DeviceOs.cs" />
     <Compile Include="IMobileDeviceDetection.cs" />

@@ -6,6 +6,7 @@ namespace ZeroProximity.DeviceDetection
         WindowsPhone,
         BlackBerry,
         Android,
+        Windows8,
         Other,
         Unknown
     }
