@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroProximity.DeviceDetecti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZeroProximity.DeviceDetection.Demo", "ZeroProximity.DeviceDetection.Demo\ZeroProximity.DeviceDetection.Demo.csproj", "{E3E37CEF-559A-472A-87CC-D4154BF4C2F7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{749BE197-3B76-4AE8-BEE9-DACE59F512BA}"
+	ProjectSection(SolutionItems) = preProject
+		..\BuildSolution.build = ..\BuildSolution.build
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

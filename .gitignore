@@ -32,3 +32,4 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 .gitignore
 *.Publish.xml
+Source/Build/Packages*/
